@@ -2,10 +2,12 @@ const axios = require("axios");
 const querystring = require("querystring");
 
 let taxInfo = "";
+let totalncome = "";
 
 module.exports = {
   computeTax: (req, res) => {
     const { income, statePick, filing } = req.body;
+    totalIncome = req.body.income;
     console.log("BODY", req.body);
 
     filingStatusCheck = status => {
@@ -47,7 +49,11 @@ module.exports = {
       .catch(err => console.log(err));
   },
   getTaxes: (req, res) => {
-    res.status(200).send(taxInfo);
+    moneyInfo = {
+      taxInfo,
+      totalIncome
+    };
+    res.status(200).send(moneyInfo);
   }
 };
 
