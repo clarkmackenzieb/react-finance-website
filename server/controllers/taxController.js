@@ -8,7 +8,6 @@ module.exports = {
   computeTax: (req, res) => {
     const { income, statePick, filing } = req.body;
     totalIncome = req.body.income;
-    console.log("BODY", req.body);
 
     filingStatusCheck = status => {
       switch (status) {
@@ -26,7 +25,6 @@ module.exports = {
     };
 
     let updatedFiling = filingStatusCheck(filing);
-    console.log(updatedFiling);
     axios({
       method: "POST",
       url: "https://stylinandy-taxee.p.mashape.com/v2/calculate/2017",
@@ -53,7 +51,8 @@ module.exports = {
       taxInfo,
       totalIncome
     };
-    res.status(200).send(moneyInfo);
+    console.log(moneyInfo);
+    res.status(200).json(moneyInfo);
   }
 };
 

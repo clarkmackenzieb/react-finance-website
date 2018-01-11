@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import TextField from "material-ui/TextField";
+
+import Rent from "./Rent/Rent";
+import InputFields from "./InputFields/InputFields";
+
 import RaisedButton from "material-ui/RaisedButton";
 import { Pie } from "react-chartjs-2";
 
@@ -33,6 +36,7 @@ export default class Budget extends Component {
     };
     this.handleInfo = this.handleInfo.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRent = this.handleRent.bind(this);
   }
 
   componentDidMount() {
@@ -73,29 +77,20 @@ export default class Budget extends Component {
     this.setState({ submit: true });
   }
 
-  handleSelection() {}
+  handleRent(val) {
+    axios
+      .post("/api/getRent", { headers: { type: val } })
+      .then(response => console.log(response))
+      .catch(err => console.log(err));
+  }
 
   render() {
     return (
       <div>
-        {this.state.inputFields.map((field, i) => {
-          return (
-            <div key={i}>
-              <TextField
-                hintText="ex. 100"
-                floatingLabelText={`${field} (Monthly)`}
-                onChange={e => {
-                  this.handleInfo(field, e.target.value);
-                }}
-              />
-              <br />
-            </div>
-          );
-        })}
-        <RaisedButton
-          label="Submit"
-          primary={true}
-          onClick={() => this.handleSubmit()}
+        <Rent handleRent={this.handleRent} />
+        <InputFields
+          handleSubmit={this.handleSubmit}
+          handleInfo={this.handleInfo}
         />
         {this.state.submit && (
           <Pie

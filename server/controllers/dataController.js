@@ -15,6 +15,9 @@ const dallasInfo = require("./dallas");
 // $scope.gas = budgetService.dallasInfo.prices[19].average_price * 3.8 * 12 * 4;
 
 module.exports = {
+  getRent: (req, res) => {
+    console.log(req.body);
+  },
   getCentralOne: (req, res) => {
     res.status(200).json(dallasInfo.prices[21].average_price);
   },

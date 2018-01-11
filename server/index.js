@@ -14,6 +14,7 @@ const port = 3005;
 
 app.post("/api/incomeTax", taxController.computeTax);
 app.get("/api/getTaxes", taxController.getTaxes);
+app.post("/api/getRent", dataController.getRent);
 
 app.get("/api/getCentralOne", dataController.getCentralOne);
 app.get("/api/getCentralThree", dataController.getCentralThree);
