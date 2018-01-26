@@ -22,7 +22,7 @@ export default class Rent extends Component {
     return (
       <div>
         <h1>Rent</h1>
-        <DropDownMenu value={""} onChange={this.handleRent}>
+        <DropDownMenu value={0} onChange={this.handleRent}>
           {this.state.rentArea.map((rent, i) => (
             <MenuItem
               key={i}

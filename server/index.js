@@ -16,13 +16,7 @@ app.post("/api/incomeTax", taxController.computeTax);
 app.get("/api/getTaxes", taxController.getTaxes);
 app.post("/api/getRent", dataController.getRent);
 
-app.get("/api/getCentralOne", dataController.getCentralOne);
-app.get("/api/getCentralThree", dataController.getCentralThree);
-app.get("/api/getOuterOne", dataController.getOuterOne);
-app.get("/api/getOuterThree", dataController.getOuterThree);
-app.get("/api/getAvgUtil", dataController.getAvgUtil);
-app.get("/api/getInternet", dataController.getInternet);
-app.get("/api/getGas", dataController.getGas);
+app.get("/api/getAvgPrices", dataController.getAvgPrices);
 
 app.listen(port, () => {
   console.log(`I'll be right by your side till ${port}`);

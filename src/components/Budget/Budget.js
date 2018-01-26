@@ -3,8 +3,10 @@ import axios from "axios";
 
 import Rent from "./Rent/Rent";
 import InputFields from "./InputFields/InputFields";
+import CustomInput from "./CustomInput/CustomInput";
 
 import RaisedButton from "material-ui/RaisedButton";
+import Checkbox from 'material-ui/Checkbox';
 import { Pie } from "react-chartjs-2";
 
 import "./Budget.css";
@@ -32,11 +34,13 @@ export default class Budget extends Component {
       misc: 0,
       taxes: {},
       income: 0,
-      submit: false
+      submit: false,
+      customCheck: false
     };
     this.handleInfo = this.handleInfo.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRent = this.handleRent.bind(this);
+    this.updateCheck = this.updateCheck.bind(this);
   }
 
   componentDidMount() {
@@ -49,6 +53,11 @@ export default class Budget extends Component {
         })
       )
       .catch(err => console.log(err));
+    axios
+      .get("/api/getAvgPrices")
+      .then(response =>
+        this.setState({ utility: response.data.util, internet: response.data.internet, gas: response.data.gas })
+      )
   }
 
   handleInfo(field, val) {
@@ -68,9 +77,25 @@ export default class Budget extends Component {
       case "Misc Expenditures":
         this.setState({ misc: parseInt(val, 10) });
         break;
+      case "Rent":
+        this.setState({ rent: parseInt(val, 10) })
+        break;
+      case "Gas":
+        this.setState({ gas: parseInt(val, 10) })
+        break;
+      case "Internet":
+        this.setState({ internet: parseInt(val, 10) })
+        break;
+      case "Utilities":
+        this.setState({ utility: parseInt(val, 10) })
+        break;
       default:
         return null;
     }
+  }
+
+  updateCheck() {
+    this.setState({ customCheck: !this.state.customCheck })
   }
 
   handleSubmit() {
@@ -80,7 +105,7 @@ export default class Budget extends Component {
   handleRent(val) {
     axios
       .post("/api/getRent", { headers: { type: val } })
-      .then(response => console.log(response))
+      .then(response => this.setState({ rent: response.data.rent }))
       .catch(err => console.log(err));
   }
 
@@ -88,10 +113,17 @@ export default class Budget extends Component {
     return (
       <div>
         <Rent handleRent={this.handleRent} />
+        <Checkbox
+          label="Custom Rent/Gas/Utilities/Internet?"
+          checked={this.state.customCheck}
+          onClick={() => this.updateCheck()}
+        />
+        {this.state.customCheck && <CustomInput handleInfo={this.handleInfo} />}
         <InputFields
           handleSubmit={this.handleSubmit}
           handleInfo={this.handleInfo}
         />
+        <h1>Add disposable income, investment resources, extra stuff</h1>
         {this.state.submit && (
           <Pie
             data={{

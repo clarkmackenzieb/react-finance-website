@@ -16,27 +16,30 @@ const dallasInfo = require("./dallas");
 
 module.exports = {
   getRent: (req, res) => {
-    console.log(req.body);
+    let { type } = req.body.headers;
+    switch (type) {
+      case "City Center, 3 Bedroom":
+        res.status(200).json({ rent: dallasInfo.dallasInfo.prices[23].average_price });
+        break;
+      case "City Center, 1 Bedroom":
+        res.status(200).json({ rent: dallasInfo.dallasInfo.prices[21].average_price });
+        break;
+      case "Outer City, 1 Bedroom":
+        res.status(200).json({ rent: dallasInfo.dallasInfo.prices[22].average_price });
+        break;
+      case "Outer City, 3 Bedroom":
+        res.status(200).json({ rent: dallasInfo.dallasInfo.prices[24].average_price });
+        break;
+      default:
+        res.status(200).json({ rent: 0 })
+
+    }
   },
-  getCentralOne: (req, res) => {
-    res.status(200).json(dallasInfo.prices[21].average_price);
-  },
-  getCentralThree: (req, res) => {
-    res.status(200).json(dallasInfo.prices[23].average_price);
-  },
-  getOuterOne: (req, res) => {
-    res.status(200).json(dallasInfo.prices[22].average_price);
-  },
-  getOuterThree: (req, res) => {
-    res.status(200).json(dallasInfo.prices[24].average_price);
-  },
-  getAvgUtil: (req, res) => {
-    res.status(200).json(dallasInfo.prices[25].average_price);
-  },
-  getInternet: (req, res) => {
-    res.status(200).json(dallasInfo.prices[33].average_price);
-  },
-  getGas: (req, res) => {
-    res.status(200).json(dallasInfo.prices[19].average_price * 3.8 * 12 * 4);
+  getAvgPrices: (req, res) => {
+    res.status(200).json({
+      util: dallasInfo.dallasInfo.prices[25].average_price,
+      internet: dallasInfo.dallasInfo.prices[33].average_price,
+      gas: dallasInfo.dallasInfo.prices[19].average_price * 3.8 * 12 * 4
+    })
   }
 };
