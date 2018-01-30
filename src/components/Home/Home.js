@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import RaisedButton from "material-ui/RaisedButton";
+import FlatButton from "material-ui/FlatButton";
 import { Link } from "react-router-dom";
 import "./Home.css";
 
@@ -11,19 +11,20 @@ export default class Home extends Component {
   }
   render() {
     const style = {
-      margin: 12
+      backgroundColor: "#FCFD95",
+      color: "#A0931B"
     };
 
     return (
-      <div>
-        <h1>Budget Buddy</h1>
-        <h3>Carpe diem and leave the rest to us.</h3>
-        <h4>
+      <div className="container-div" id="animate-area">
+        <h1 className="vt-font header-text">Budget Buddy</h1>
+        <h3 className="pt-sans-font">Plug in and leave the rest to us.</h3>
+        <h4 className="pt-sans-font">
           Life moves fast. With Budget Buddy, keeping track of your finances has
           never been easier.
         </h4>
         <Link to="/income">
-          <RaisedButton label="Get Started" primary={true} style={style} />
+          <FlatButton label="Get Started" primary={true} style={style} />
         </Link>
       </div>
     );

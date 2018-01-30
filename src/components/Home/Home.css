@@ -1,0 +1,41 @@
+
+
+@keyframes animatedBackground {
+    from { background-position: 0 0; }
+    to { background-position: -1342px 0; }
+  }
+  .container-div {
+    height: 100%;
+    width: 100%
+  }
+  #animate-area	{
+    height: 90vh;
+    width: 100vw;  
+      background-image: url('../../img/background-budget.png');
+      background-position: 0px 0px;
+    background-repeat: repeat-x;
+    background-size: 70%;
+  
+      animation: animatedBackground 40s linear infinite;
+  }
+
+.vt-font {
+  font-family: 'VT323', monospace;
+}
+
+.pt-sans-font {
+  font-family: 'PT Sans', sans-serif;
+}
+
+.header-text {
+  font-size: 72px
+}
+
+
+
+
+
+
+/* #A3B18A
+#E4FDE1
+#FBFEFB */

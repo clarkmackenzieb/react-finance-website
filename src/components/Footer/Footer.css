@@ -1,0 +1,29 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.main-footer{
+    height: 5vh;
+    width: 100vw;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    font-family: 'PT Sans', sans-serif;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.link, .link:visited {
+    color: white;
+    text-decoration: none;
+} 
+
+.footer-contents {
+    margin: 5px 5px;
+}
+
+.github-logo {
+    height: 30px;
+    width: 30px;
+}

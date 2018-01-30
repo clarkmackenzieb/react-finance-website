@@ -10,5 +10,7 @@ export default (
     <Route exact path="/" component={Home} />
     <Route path="/income" component={Income} />
     <Route path="/budget" component={Budget} />
+    <Route path="/about" />
+    <Route path="/resources" />
   </Switch>
 );
