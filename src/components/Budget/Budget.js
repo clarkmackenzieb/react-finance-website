@@ -5,7 +5,6 @@ import Rent from "./Rent/Rent";
 import InputFields from "./InputFields/InputFields";
 import CustomInput from "./CustomInput/CustomInput";
 
-import RaisedButton from "material-ui/RaisedButton";
 import Checkbox from 'material-ui/Checkbox';
 import { Pie } from "react-chartjs-2";
 
@@ -24,7 +23,7 @@ export default class Budget extends Component {
         "Misc Expenditures"
       ],
       rent: 0,
-      utility: 0,
+      utilities: 0,
       internet: 0,
       gas: 0,
       groceries: 0,
@@ -46,52 +45,27 @@ export default class Budget extends Component {
   componentDidMount() {
     axios
       .get("/api/getTaxes")
-      .then(response =>
+      .then(response => {
         this.setState({
-          taxes: response.data.taxInfo.annual,
-          income: response.data.taxInfo.totalIncome
+          taxes: (response.data.taxInfo.annual.federal.amount + response.data.taxInfo.annual.fica.amount + response.data.taxInfo.annual.state.amount) / 12,
+          income: (response.data.totalIncome - (response.data.taxInfo.annual.federal.amount + response.data.taxInfo.annual.fica.amount + response.data.taxInfo.annual.state.amount)) / 12
         })
+        console.log(response.data)
+      }
       )
       .catch(err => console.log(err));
     axios
       .get("/api/getAvgPrices")
       .then(response =>
-        this.setState({ utility: response.data.util, internet: response.data.internet, gas: response.data.gas })
+        this.setState({ utilities: response.data.util, internet: response.data.internet, gas: response.data.gas })
       )
   }
 
   handleInfo(field, val) {
-    switch (field) {
-      case "Groceries":
-        this.setState({ groceries: parseInt(val, 10) });
-        break;
-      case "Loans":
-        this.setState({ loans: parseInt(val, 10) });
-        break;
-      case "Savings":
-        this.setState({ savings: parseInt(val, 10) });
-        break;
-      case "Debt":
-        this.setState({ debt: parseInt(val, 10) });
-        break;
-      case "Misc Expenditures":
-        this.setState({ misc: parseInt(val, 10) });
-        break;
-      case "Rent":
-        this.setState({ rent: parseInt(val, 10) })
-        break;
-      case "Gas":
-        this.setState({ gas: parseInt(val, 10) })
-        break;
-      case "Internet":
-        this.setState({ internet: parseInt(val, 10) })
-        break;
-      case "Utilities":
-        this.setState({ utility: parseInt(val, 10) })
-        break;
-      default:
-        return null;
-    }
+    let section = field.toLowerCase();
+    ((section === "misc expenditures") ? section = "misc" : false);
+    this.setState({ [section]: parseInt(val, 10) })
+
   }
 
   updateCheck() {
@@ -110,6 +84,9 @@ export default class Budget extends Component {
   }
 
   render() {
+    let
+      expendable = (this.state.income - (this.state.rent + this.state.utilities + this.state.internet + this.state.gas + this.state.groceries +
+        this.state.loans + this.state.misc))
     return (
       <div>
         <Rent handleRent={this.handleRent} />
@@ -129,21 +106,23 @@ export default class Budget extends Component {
             data={{
               labels: [
                 "Rent",
-                "Utility",
+                "Utilities",
                 "Internet",
                 "Gas",
                 "Groceries",
-                "Misc Expenditures"
+                "Misc Expenditures",
+                "Expendable Income"
               ],
               datasets: [
                 {
                   data: [
-                    this.state.rent,
-                    this.state.utility,
-                    this.state.internet,
-                    this.state.gas,
-                    this.state.groceries,
-                    this.state.misc
+                    Math.round(this.state.rent),
+                    Math.round(this.state.utilities),
+                    Math.round(this.state.internet),
+                    Math.round(this.state.gas),
+                    Math.round(this.state.groceries),
+                    Math.round(this.state.misc),
+                    Math.round(expendable)
                   ],
                   backgroundColor: [
                     "#FF6384",
@@ -151,7 +130,8 @@ export default class Budget extends Component {
                     "#FFCE56",
                     "#C8CC92",
                     "#A07178",
-                    "#776274"
+                    "#776274",
+                    "#3B7080"
                   ],
                   hoverBackgroundColor: [
                     "#FF6384",
@@ -159,7 +139,8 @@ export default class Budget extends Component {
                     "#FFCE56",
                     "#C8CC92",
                     "#A07178",
-                    "#776274"
+                    "#776274",
+                    "#3B7080"
                   ]
                 }
               ]

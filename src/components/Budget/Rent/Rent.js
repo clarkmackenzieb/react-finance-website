@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import DropDownMenu from "material-ui/DropDownMenu";
 import MenuItem from "material-ui/MenuItem";
 
