@@ -12,17 +12,20 @@ export default class Home extends Component {
   render() {
     const style = {
       backgroundColor: "#FCFD95",
-      color: "#A0931B"
+      color: "black",
+      margin: "10px 10px",
+      "font-family": "VT323",
+      "font-size": "35px",
     };
 
     return (
       <div className="container-div" id="animate-area">
-        <h1 className="vt-font header-text">Budget Buddy</h1>
-        <h3 className="pt-sans-font">Plug in and leave the rest to us.</h3>
-        <h4 className="pt-sans-font">
+        <h1 className="vt-font header-text home-page-text">Budget Buddy</h1>
+        <h2 className="pt-sans-font home-page-text">Plug in and leave the rest to us.</h2>
+        <h3 className="pt-sans-font home-page-text">
           Life moves fast. With Budget Buddy, keeping track of your finances has
           never been easier.
-        </h4>
+        </h3>
         <Link to="/income">
           <FlatButton label="Get Started" primary={true} style={style} />
         </Link>

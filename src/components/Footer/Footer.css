@@ -4,8 +4,8 @@
 }
 
 .main-footer{
-    height: 5vh;
-    width: 100vw;
+    height: 7vh;
+    max-width: 100vw;
     background-color: black;
     color: white;
     text-decoration: none;
@@ -20,7 +20,7 @@
 } 
 
 .footer-contents {
-    margin: 5px 5px;
+    margin: 7px 10px;
 }
 
 .github-logo {
