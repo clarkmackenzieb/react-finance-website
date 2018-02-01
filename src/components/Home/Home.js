@@ -11,11 +11,11 @@ export default class Home extends Component {
   }
   render() {
     const style = {
-      backgroundColor: "#FCFD95",
+      backgroundColor: "#FFF200",
       color: "black",
       margin: "10px 10px",
-      "font-family": "VT323",
-      "font-size": "35px",
+      fontFamily: "VT323",
+      fontSize: "35px",
     };
 
     return (
