@@ -5,6 +5,7 @@ import FlatButton from "material-ui/FlatButton";
 import { Pie } from "react-chartjs-2";
 import { Link } from "react-router-dom";
 
+import TextInput from "../TextInput/TextInput"
 import "./Income.css";
 
 export default class Income extends Component {
@@ -15,9 +16,11 @@ export default class Income extends Component {
       income: 0,
       state: "",
       filingStatus: 0,
-      taxInfo: ""
+      taxInfo: "",
+      sections: ["Income", "State", "Filing Status"]
     };
     this.computeTax = this.computeTax.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   //Toss in a few buttons, one to compute data, one to move to next page that only appears after the graph is made
@@ -35,7 +38,19 @@ export default class Income extends Component {
       .catch(err => console.log(err));
   }
 
+  handleChange(section, val) {
+    (section === "Filing Status") ? section = "filing" : section = section.toLowerCase();
+    this.setState({ [section]: val });
+  }
+
   render() {
+
+    let inputFields = this.state.sections.map((section, i) => {
+      return (
+        <TextInput textTitle={section} handleInfo={this.handleChange} key={i} />
+      )
+    });
+
     const style = {
       backgroundColor: "#FFF200",
       color: "black",
@@ -48,7 +63,8 @@ export default class Income extends Component {
       <div className="income-container">
         <div className="income-text-fields">
           <h1 className="vt-font">Income Reuse Text Field Component from Budget to make this cleaner</h1>
-          <TextField
+          {inputFields}
+          {/* <TextField
             className="pt-sans-font"
             hintText="50000"
             errorText="This field is required"
@@ -84,7 +100,7 @@ export default class Income extends Component {
             onChange={(e, newValue) => {
               this.setState({ filingStatus: parseInt(newValue, 10) });
             }}
-          />
+          /> */}
           <div className="pt-sans-font">
             <p>Filing Status:</p>
             <p>1 - Single;</p>

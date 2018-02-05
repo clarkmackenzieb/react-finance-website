@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import Rent from "./Rent/Rent";
-import InputFields from "./InputFields/InputFields";
-import CustomInput from "./CustomInput/CustomInput";
+import TextInput from "../TextInput/TextInput";
 
 import Checkbox from 'material-ui/Checkbox';
 import { Pie } from "react-chartjs-2";
@@ -21,6 +20,12 @@ export default class Budget extends Component {
         "Savings",
         "Debt",
         "Misc Expenditures"
+      ],
+      customInput: [
+        "Rent",
+        "Gas",
+        "Internet",
+        "Utilities"
       ],
       rent: 0,
       utilities: 0,
@@ -88,11 +93,18 @@ export default class Budget extends Component {
       expendable = (this.state.income - (this.state.rent + this.state.utilities + this.state.internet + this.state.gas + this.state.groceries +
         this.state.loans + this.state.misc))
 
-    let inputFields = (this.state.inputFields((field, i) => {
+    let inputFields = (this.state.inputFields.map((field, i) => {
       return (
-        <InputFields field={field} key={i} />
+        <TextInput textTitle={field} handleInfo={this.handleInfo} key={i} />
       )
     }))
+
+    let customInput = (this.state.customInput.map((field, i) => {
+      return (
+        <TextInput textTitle={field} handleInfo={this.handleInfo} key={i} />
+      )
+    }))
+
     return (
       <div>
         <Rent handleRent={this.handleRent} />
@@ -101,12 +113,9 @@ export default class Budget extends Component {
           checked={this.state.customCheck}
           onClick={() => this.updateCheck()}
         />
-        {this.state.customCheck && <CustomInput handleInfo={this.handleInfo} />}
-        <InputFields
-          handleSubmit={this.handleSubmit}
-          handleInfo={this.handleInfo}
-        />
-        <h1>Add disposable income, investment resources, extra stuff</h1>
+        {this.state.customCheck && customInput}
+        {inputFields}
+        <h1> REPLACE BUTTON Add disposable income, investment resources, extra stuff</h1>
         {this.state.submit && (
           <Pie
             data={{

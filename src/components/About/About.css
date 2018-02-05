@@ -1,5 +1,18 @@
-.angery {
-    color: red;
-    font-size: 650px;
-    height: 86vh;
+.about-container {
+    height: 82vh;
+    background-color: rgb(133, 133, 214);
+    padding: 2vh; 
+}
+
+.about-header-main {
+    font-size: 72px;
+}
+
+.about-header-sub {
+    font-size: 40px;
+}
+
+.about-text-container {
+    width: 50vw;
+    font-size: 20px;
 }
