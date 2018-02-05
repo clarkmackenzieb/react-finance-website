@@ -87,6 +87,12 @@ export default class Budget extends Component {
     let
       expendable = (this.state.income - (this.state.rent + this.state.utilities + this.state.internet + this.state.gas + this.state.groceries +
         this.state.loans + this.state.misc))
+
+    let inputFields = (this.state.inputFields((field, i) => {
+      return (
+        <InputFields field={field} key={i} />
+      )
+    }))
     return (
       <div>
         <Rent handleRent={this.handleRent} />

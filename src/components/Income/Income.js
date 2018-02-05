@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import TextField from "material-ui/TextField";
-import RaisedButton from "material-ui/RaisedButton";
+import FlatButton from "material-ui/FlatButton";
 import { Pie } from "react-chartjs-2";
 import { Link } from "react-router-dom";
 
@@ -36,12 +36,20 @@ export default class Income extends Component {
   }
 
   render() {
+    const style = {
+      backgroundColor: "#FFF200",
+      color: "black",
+      fontFamily: "VT323",
+      fontSize: "35px",
+      border: "black 3px solid"
+    };
     return (
       // flex wrap the p tags so they sit to the right of the input boxes
-      <div>
-        <div>
-          <h1>Income</h1>
+      <div className="income-container">
+        <div className="income-text-fields">
+          <h1 className="vt-font">Income Reuse Text Field Component from Budget to make this cleaner</h1>
           <TextField
+            className="pt-sans-font"
             hintText="50000"
             errorText="This field is required"
             floatingLabelText="Income"
@@ -49,12 +57,13 @@ export default class Income extends Component {
               this.setState({ income: parseInt(newValue, 10) });
             }}
           />
-          <div>
+          <div className="pt-sans-font">
             <p>Income Data</p>
             <p> (ex $50,000 = 50000)</p>
           </div>
           <br />
           <TextField
+            className="pt-sans-font"
             hintText="TN, CA, NY"
             errorText="This field is required"
             floatingLabelText="State"
@@ -62,12 +71,13 @@ export default class Income extends Component {
               this.setState({ state: newValue });
             }}
           />
-          <div>
+          <div className="pt-sans-font">
             <p>State Abbreviation:</p>
             <p>Tennessee: TN, California: CA, etc.</p>
           </div>
           <br />
           <TextField
+            className="pt-sans-font"
             hintText="1,2,3"
             errorText="This field is required"
             floatingLabelText="Filing Status"
@@ -75,26 +85,35 @@ export default class Income extends Component {
               this.setState({ filingStatus: parseInt(newValue, 10) });
             }}
           />
-          <div>
+          <div className="pt-sans-font">
             <p>Filing Status:</p>
             <p>1 - Single;</p>
             <p>2 - Married, Filing Jointly;</p>
             <p>3 - Married, Filing Seperately;</p>
             <p>4 - Head of Household; </p>
           </div>
+          <FlatButton
+            style={style}
+            label="CALCULATE"
+            onClick={() => {
+              this.computeTax(
+                this.state.income,
+                this.state.state,
+                this.state.filingStatus
+              );
+            }}
+          />
+          <br />
+          {this.state.taxInfo && (
+            <Link to="/budget">
+              <FlatButton label="Make a Budget" />
+            </Link>
+          )}
         </div>
-        <RaisedButton
-          label="Default"
-          onClick={() => {
-            this.computeTax(
-              this.state.income,
-              this.state.state,
-              this.state.filingStatus
-            );
-          }}
-        />
         {this.state.taxInfo && (
           <Pie
+            height={70}
+            width={150}
             data={{
               labels: ["Federal", "State", "FICA"],
               datasets: [
@@ -111,11 +130,9 @@ export default class Income extends Component {
             }}
           />
         )}
-        {this.state.taxInfo && (
-          <Link to="/budget">
-            <RaisedButton label="Make a Budget" />
-          </Link>
-        )}
+
+
+
       </div>
     );
   }
