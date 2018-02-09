@@ -4,7 +4,7 @@ import axios from "axios";
 import Rent from "./Rent/Rent";
 import TextInput from "../TextInput/TextInput";
 
-import Checkbox from 'material-ui/Checkbox';
+import Checkbox from "material-ui/Checkbox";
 import { Pie } from "react-chartjs-2";
 
 import "./Budget.css";
@@ -21,12 +21,7 @@ export default class Budget extends Component {
         "Debt",
         "Misc Expenditures"
       ],
-      customInput: [
-        "Rent",
-        "Gas",
-        "Internet",
-        "Utilities"
-      ],
+      customInput: ["Rent", "Gas", "Internet", "Utilities"],
       rent: 0,
       utilities: 0,
       internet: 0,
@@ -52,29 +47,38 @@ export default class Budget extends Component {
       .get("/api/getTaxes")
       .then(response => {
         this.setState({
-          taxes: (response.data.taxInfo.annual.federal.amount + response.data.taxInfo.annual.fica.amount + response.data.taxInfo.annual.state.amount) / 12,
-          income: (response.data.totalIncome - (response.data.taxInfo.annual.federal.amount + response.data.taxInfo.annual.fica.amount + response.data.taxInfo.annual.state.amount)) / 12
-        })
-        console.log(response.data)
-      }
-      )
+          taxes:
+            (response.data.taxInfo.annual.federal.amount +
+              response.data.taxInfo.annual.fica.amount +
+              response.data.taxInfo.annual.state.amount) /
+            12,
+          income:
+            (response.data.totalIncome -
+              (response.data.taxInfo.annual.federal.amount +
+                response.data.taxInfo.annual.fica.amount +
+                response.data.taxInfo.annual.state.amount)) /
+            12
+        });
+        console.log(response.data);
+      })
       .catch(err => console.log(err));
-    axios
-      .get("/api/getAvgPrices")
-      .then(response =>
-        this.setState({ utilities: response.data.util, internet: response.data.internet, gas: response.data.gas })
-      )
+    axios.get("/api/getAvgPrices").then(response =>
+      this.setState({
+        utilities: response.data.util,
+        internet: response.data.internet,
+        gas: response.data.gas
+      })
+    );
   }
 
   handleInfo(field, val) {
     let section = field.toLowerCase();
-    ((section === "misc expenditures") ? section = "misc" : false);
-    this.setState({ [section]: parseInt(val, 10) })
-
+    section === "misc expenditures" ? (section = "misc") : false;
+    this.setState({ [section]: parseInt(val, 10) });
   }
 
   updateCheck() {
-    this.setState({ customCheck: !this.state.customCheck })
+    this.setState({ customCheck: !this.state.customCheck });
   }
 
   handleSubmit() {
@@ -89,33 +93,65 @@ export default class Budget extends Component {
   }
 
   render() {
-    let
-      expendable = (this.state.income - (this.state.rent + this.state.utilities + this.state.internet + this.state.gas + this.state.groceries +
-        this.state.loans + this.state.misc))
+    const styles = {
+      floatingLabelFocusStyle: {
+        color: "black"
+      },
+      underlineStyle: {
+        borderColor: "black"
+      }
+    };
 
-    let inputFields = (this.state.inputFields.map((field, i) => {
-      return (
-        <TextInput textTitle={field} handleInfo={this.handleInfo} key={i} />
-      )
-    }))
+    let expendable =
+      this.state.income -
+      (this.state.rent +
+        this.state.utilities +
+        this.state.internet +
+        this.state.gas +
+        this.state.groceries +
+        this.state.loans +
+        this.state.misc);
 
-    let customInput = (this.state.customInput.map((field, i) => {
+    let inputFields = this.state.inputFields.map((field, i) => {
       return (
-        <TextInput textTitle={field} handleInfo={this.handleInfo} key={i} />
-      )
-    }))
+        <TextInput
+          styles={styles}
+          textTitle={field}
+          handleInfo={this.handleInfo}
+          key={i}
+        />
+      );
+    });
+
+    let customInput = this.state.customInput.map((field, i) => {
+      return (
+        <TextInput
+          styles={styles}
+          textTitle={field}
+          handleInfo={this.handleInfo}
+          key={i}
+        />
+      );
+    });
 
     return (
-      <div>
-        <Rent handleRent={this.handleRent} />
-        <Checkbox
-          label="Custom Rent/Gas/Utilities/Internet?"
-          checked={this.state.customCheck}
-          onClick={() => this.updateCheck()}
-        />
-        {this.state.customCheck && customInput}
-        {inputFields}
-        <h1> REPLACE BUTTON Add disposable income, investment resources, extra stuff</h1>
+      <div className="budget-main-container">
+        <h1>
+          Fix rent select box, sizing issue on page, placement of pie chart, and
+          final styling
+        </h1>
+        <div className="budget-input-container">
+          <Rent handleRent={this.handleRent} />
+          <Checkbox
+            labelStyle={{ color: "black" }}
+            iconStyle={{ fill: "black" }}
+            label="Custom Rent/Gas/Utilities/Internet?"
+            checked={this.state.customCheck}
+            onClick={() => this.updateCheck()}
+          />
+          {this.state.customCheck && customInput}
+          {inputFields}
+        </div>
         {this.state.submit && (
           <Pie
             data={{

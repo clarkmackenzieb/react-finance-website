@@ -5,7 +5,7 @@ import FlatButton from "material-ui/FlatButton";
 import { Pie } from "react-chartjs-2";
 import { Link } from "react-router-dom";
 
-import TextInput from "../TextInput/TextInput"
+import TextInput from "../TextInput/TextInput";
 import "./Income.css";
 
 export default class Income extends Component {
@@ -39,16 +39,20 @@ export default class Income extends Component {
   }
 
   handleChange(section, val) {
-    (section === "Filing Status") ? section = "filing" : section = section.toLowerCase();
+    if (section === "Filing Status") {
+      section = "filingStatus";
+      val = parseInt(val);
+    } else {
+      section = section.toLowerCase();
+    }
     this.setState({ [section]: val });
   }
 
   render() {
-
     let inputFields = this.state.sections.map((section, i) => {
       return (
         <TextInput textTitle={section} handleInfo={this.handleChange} key={i} />
-      )
+      );
     });
 
     const style = {
@@ -62,7 +66,7 @@ export default class Income extends Component {
       // flex wrap the p tags so they sit to the right of the input boxes
       <div className="income-container">
         <div className="income-text-fields">
-          <h1 className="vt-font">Income Reuse Text Field Component from Budget to make this cleaner</h1>
+          <h1 className="vt-font">Income</h1>
           {inputFields}
           {/* <TextField
             className="pt-sans-font"
@@ -146,9 +150,6 @@ export default class Income extends Component {
             }}
           />
         )}
-
-
-
       </div>
     );
   }

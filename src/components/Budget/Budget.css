@@ -1,0 +1,9 @@
+.budget-main-container {
+  padding: 2vh 0 0 2vh;
+  height: 84vh;
+  background-color: rgb(114, 178, 230);
+}
+
+.budget-input-container {
+  width: 25vw;
+}

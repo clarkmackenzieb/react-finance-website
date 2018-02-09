@@ -1,18 +1,27 @@
 .about-container {
-    height: 82vh;
-    background-color: rgb(133, 133, 214);
-    padding: 2vh; 
+  height: 84vh;
+  background-color: rgb(133, 133, 214);
+  padding: 2vh 0 0 2vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .about-header-main {
-    font-size: 72px;
+  font-size: 72px;
 }
 
 .about-header-sub {
-    font-size: 40px;
+  font-size: 40px;
 }
 
 .about-text-container {
-    width: 50vw;
-    font-size: 20px;
+  height: 50vh;
+  width: 50vw;
+  font-size: 20px;
+}
+
+.about-pixel-sprite {
+  height: 80px;
+  width: 80px;
 }

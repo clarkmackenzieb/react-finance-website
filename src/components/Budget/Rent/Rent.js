@@ -20,7 +20,7 @@ export default class Rent extends Component {
   render() {
     return (
       <div>
-        <h1>Rent</h1>
+        <h1 className="vt-font">Rent</h1>
         <DropDownMenu value={0} onChange={this.handleRent}>
           {this.state.rentArea.map((rent, i) => (
             <MenuItem

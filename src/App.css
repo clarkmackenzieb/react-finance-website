@@ -1,3 +1,12 @@
 .app-containing-div {
-    max-height: 100vh;
+  max-height: 100vh;
+}
+
+#text-field-id + div > hr {
+  border: 0.5px solid black !important;
+  bottom: 8px;
+  box-sizing: content-box;
+  margin: 0px;
+  position: absolute;
+  width: 100%;
 }
