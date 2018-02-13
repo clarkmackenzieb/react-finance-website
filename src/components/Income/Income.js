@@ -49,12 +49,6 @@ export default class Income extends Component {
   }
 
   render() {
-    let inputFields = this.state.sections.map((section, i) => {
-      return (
-        <TextInput textTitle={section} handleInfo={this.handleChange} key={i} />
-      );
-    });
-
     const style = {
       backgroundColor: "#FFF200",
       color: "black",
@@ -62,49 +56,31 @@ export default class Income extends Component {
       fontSize: "35px",
       border: "black 3px solid"
     };
+    const styles = {
+      floatingLabelFocusStyle: {
+        color: "black"
+      },
+      underlineStyle: {
+        borderColor: "black"
+      }
+    };
+    let inputFields = this.state.sections.map((section, i) => {
+      return (
+        <TextInput
+          styles={styles}
+          textTitle={section}
+          handleInfo={this.handleChange}
+          key={i}
+        />
+      );
+    });
+
     return (
       // flex wrap the p tags so they sit to the right of the input boxes
       <div className="income-container">
         <div className="income-text-fields">
           <h1 className="vt-font">Income</h1>
           {inputFields}
-          {/* <TextField
-            className="pt-sans-font"
-            hintText="50000"
-            errorText="This field is required"
-            floatingLabelText="Income"
-            onChange={(e, newValue) => {
-              this.setState({ income: parseInt(newValue, 10) });
-            }}
-          />
-          <div className="pt-sans-font">
-            <p>Income Data</p>
-            <p> (ex $50,000 = 50000)</p>
-          </div>
-          <br />
-          <TextField
-            className="pt-sans-font"
-            hintText="TN, CA, NY"
-            errorText="This field is required"
-            floatingLabelText="State"
-            onChange={(e, newValue) => {
-              this.setState({ state: newValue });
-            }}
-          />
-          <div className="pt-sans-font">
-            <p>State Abbreviation:</p>
-            <p>Tennessee: TN, California: CA, etc.</p>
-          </div>
-          <br />
-          <TextField
-            className="pt-sans-font"
-            hintText="1,2,3"
-            errorText="This field is required"
-            floatingLabelText="Filing Status"
-            onChange={(e, newValue) => {
-              this.setState({ filingStatus: parseInt(newValue, 10) });
-            }}
-          /> */}
           <div className="pt-sans-font">
             <p>Filing Status:</p>
             <p>1 - Single;</p>

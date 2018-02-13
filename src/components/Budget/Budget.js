@@ -6,6 +6,7 @@ import TextInput from "../TextInput/TextInput";
 
 import Checkbox from "material-ui/Checkbox";
 import { Pie } from "react-chartjs-2";
+import FlatButton from "material-ui/FlatButton";
 
 import "./Budget.css";
 
@@ -14,13 +15,7 @@ export default class Budget extends Component {
     super(props);
 
     this.state = {
-      inputFields: [
-        "Groceries",
-        "Loans",
-        "Savings",
-        "Debt",
-        "Misc Expenditures"
-      ],
+      inputFields: ["Groceries", "Loans", "Misc Expenditures"],
       customInput: ["Rent", "Gas", "Internet", "Utilities"],
       rent: 0,
       utilities: 0,
@@ -40,6 +35,7 @@ export default class Budget extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRent = this.handleRent.bind(this);
     this.updateCheck = this.updateCheck.bind(this);
+    this.handleRedo = this.handleRedo.bind(this);
   }
 
   componentDidMount() {
@@ -92,6 +88,17 @@ export default class Budget extends Component {
       .catch(err => console.log(err));
   }
 
+  handleRedo() {
+    this.setState({
+      groceries: 0,
+      loans: 0,
+      savings: 0,
+      debt: 0,
+      misc: 0,
+      submit: false
+    });
+  }
+
   render() {
     const styles = {
       floatingLabelFocusStyle: {
@@ -101,7 +108,12 @@ export default class Budget extends Component {
         borderColor: "black"
       }
     };
-
+    const style = {
+      backgroundColor: "#FFF200",
+      color: "black"
+      //   fontSize: "12px",
+      //   border: "black 3px solid"
+    };
     let expendable =
       this.state.income -
       (this.state.rent +
@@ -136,67 +148,88 @@ export default class Budget extends Component {
 
     return (
       <div className="budget-main-container">
-        <h1>
-          Fix rent select box, sizing issue on page, placement of pie chart, and
-          final styling
-        </h1>
-        <div className="budget-input-container">
-          <Rent handleRent={this.handleRent} />
-          <Checkbox
-            labelStyle={{ color: "black" }}
-            iconStyle={{ fill: "black" }}
-            label="Custom Rent/Gas/Utilities/Internet?"
-            checked={this.state.customCheck}
-            onClick={() => this.updateCheck()}
-          />
-          {this.state.customCheck && customInput}
-          {inputFields}
-        </div>
+        {!this.state.submit && (
+          <div className="budget-input-container">
+            <div className="budget-indiv-container">
+              <Rent handleRent={this.handleRent} />
+            </div>
+            <div className="budget-indiv-container">
+              <Checkbox
+                labelStyle={{ color: "black" }}
+                iconStyle={{ fill: "black" }}
+                label="Custom Rent/Gas/Utilities/Internet?"
+                checked={this.state.customCheck}
+                onClick={() => this.updateCheck()}
+              />
+            </div>
+            <div className="budget-indiv-container">
+              {this.state.customCheck && customInput}
+            </div>
+            <div className="budget-indiv-container">{inputFields}</div>
+
+            <FlatButton
+              style={style}
+              label="SUBMIT"
+              onClick={() => {
+                this.handleSubmit();
+              }}
+            />
+          </div>
+        )}
         {this.state.submit && (
-          <Pie
-            data={{
-              labels: [
-                "Rent",
-                "Utilities",
-                "Internet",
-                "Gas",
-                "Groceries",
-                "Misc Expenditures",
-                "Expendable Income"
-              ],
-              datasets: [
-                {
-                  data: [
-                    Math.round(this.state.rent),
-                    Math.round(this.state.utilities),
-                    Math.round(this.state.internet),
-                    Math.round(this.state.gas),
-                    Math.round(this.state.groceries),
-                    Math.round(this.state.misc),
-                    Math.round(expendable)
-                  ],
-                  backgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
-                    "#FFCE56",
-                    "#C8CC92",
-                    "#A07178",
-                    "#776274",
-                    "#3B7080"
-                  ],
-                  hoverBackgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
-                    "#FFCE56",
-                    "#C8CC92",
-                    "#A07178",
-                    "#776274",
-                    "#3B7080"
-                  ]
-                }
-              ]
-            }}
-          />
+          <div>
+            <Pie
+              data={{
+                labels: [
+                  "Rent",
+                  "Utilities",
+                  "Internet",
+                  "Gas",
+                  "Groceries",
+                  "Misc Expenditures",
+                  "Expendable Income"
+                ],
+                datasets: [
+                  {
+                    data: [
+                      Math.round(this.state.rent),
+                      Math.round(this.state.utilities),
+                      Math.round(this.state.internet),
+                      Math.round(this.state.gas),
+                      Math.round(this.state.groceries),
+                      Math.round(this.state.misc),
+                      Math.round(expendable)
+                    ],
+                    backgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56",
+                      "#C8CC92",
+                      "#A07178",
+                      "#776274",
+                      "#3B7080"
+                    ],
+                    hoverBackgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56",
+                      "#C8CC92",
+                      "#A07178",
+                      "#776274",
+                      "#3B7080"
+                    ]
+                  }
+                ]
+              }}
+            />
+            <FlatButton
+              style={style}
+              label="REDO"
+              onClick={() => {
+                this.handleRedo();
+              }}
+            />
+          </div>
         )}
       </div>
     );

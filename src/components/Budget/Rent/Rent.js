@@ -13,15 +13,21 @@ export default class Rent extends Component {
         "Outer City, 1 Bedroom",
         "Outer City, 3 Bedroom",
         "No Rent Payment"
-      ]
+      ],
+      rentValue: 0
     };
+    this.handleRentChange = this.handleRentChange.bind(this);
+  }
+
+  handleRentChange(val) {
+    this.setState({ rentValue: val });
   }
 
   render() {
     return (
       <div>
         <h1 className="vt-font">Rent</h1>
-        <DropDownMenu value={0} onChange={this.handleRent}>
+        <DropDownMenu value={this.state.rentValue} onChange={this.handleRent}>
           {this.state.rentArea.map((rent, i) => (
             <MenuItem
               key={i}
@@ -29,6 +35,7 @@ export default class Rent extends Component {
               primaryText={rent}
               onClick={() => {
                 this.props.handleRent(rent);
+                this.handleRentChange(i);
               }}
             />
           ))}

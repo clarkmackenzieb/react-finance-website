@@ -6,4 +6,10 @@
 
 .budget-input-container {
   width: 25vw;
+  display: flex;
+  flex-direction: row;
+}
+
+.budget-indiv-container {
+  margin: 0 2vw;
 }

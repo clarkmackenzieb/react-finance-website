@@ -6,8 +6,8 @@ const TextInput = props => {
   return (
     <div>
       <TextField
-        // id="text-field-id"
-        // styles={styles}
+        id="text-field-id"
+        styles={styles}
         underlineStyle={{
           color: "black"
         }}
