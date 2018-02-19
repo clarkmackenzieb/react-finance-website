@@ -47,13 +47,13 @@ export default () => {
           here!
         </a>
       </p>
-      <div className="resources-img-container">
+      {/* <div className="resources-img-container">
         <img
           className="money-bag-image"
           src={moneyBag}
           alt="a large sum of money"
         />
-      </div>
+      </div> */}
     </div>
   );
 };
