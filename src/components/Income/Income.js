@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
 import { Pie } from "react-chartjs-2";
 import { Link } from "react-router-dom";
@@ -41,7 +40,7 @@ export default class Income extends Component {
   handleChange(section, val) {
     if (section === "Filing Status") {
       section = "filingStatus";
-      val = parseInt(val);
+      val = parseInt(val, 10);
     } else {
       section = section.toLowerCase();
     }

@@ -69,7 +69,9 @@ export default class Budget extends Component {
 
   handleInfo(field, val) {
     let section = field.toLowerCase();
-    section === "misc expenditures" ? (section = "misc") : false;
+    if(section === "misc expenditures"){
+      section = "misc";
+    }
     this.setState({ [section]: parseInt(val, 10) });
   }
 

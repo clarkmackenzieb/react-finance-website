@@ -18,6 +18,8 @@ app.post("/api/getRent", dataController.getRent);
 
 app.get("/api/getAvgPrices", dataController.getAvgPrices);
 
+app.use( express.static( `${__dirname}/../build` ) );
+
 app.listen(port, () => {
   console.log(`I'll be right by your side till ${port}`);
 });

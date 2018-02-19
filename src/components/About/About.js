@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import "./About.css";
 
@@ -56,6 +56,7 @@ const About = () => {
         </p>
       </div>
       <img
+        alt="pixel-sprite"
         className="about-pixel-sprite"
         src={require("../../img/pixel-sprite.png")}
       />

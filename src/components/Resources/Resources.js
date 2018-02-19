@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import "./Resources.css";
 const moneyBag = require("../../img/money-bag-budget.png");
