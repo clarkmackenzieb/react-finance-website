@@ -109,10 +109,12 @@ export default class Budget extends Component {
       }
     };
     const style = {
+      marginTop: "20px",
       backgroundColor: "#FFF200",
-      color: "black"
-      //   fontSize: "12px",
-      //   border: "black 3px solid"
+      color: "black",
+      fontFamily: "VT323",
+      fontSize: "35px",
+      border: "black 3px solid"
     };
     let expendable =
       this.state.income -
@@ -201,22 +203,22 @@ export default class Budget extends Component {
                       Math.round(expendable)
                     ],
                     backgroundColor: [
-                      "#FF6384",
-                      "#36A2EB",
-                      "#FFCE56",
-                      "#C8CC92",
-                      "#A07178",
-                      "#776274",
-                      "#3B7080"
+                      "#6B0AA9",
+                      "#9550C0",
+                      "#7E2EB1",
+                      "#530784",
+                      "#410467",
+                      "#200134",
+                      "#0F0018"
                     ],
                     hoverBackgroundColor: [
-                      "#FF6384",
-                      "#36A2EB",
-                      "#FFCE56",
-                      "#C8CC92",
-                      "#A07178",
-                      "#776274",
-                      "#3B7080"
+                      "#6B0AA9",
+                      "#9550C0",
+                      "#7E2EB1",
+                      "#530784",
+                      "#410467",
+                      "#200134",
+                      "#0F0018"
                     ]
                   }
                 ]

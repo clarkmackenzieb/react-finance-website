@@ -50,6 +50,7 @@ export default class Income extends Component {
 
   render() {
     const style = {
+      marginTop: "20px",
       backgroundColor: "#FFF200",
       color: "black",
       fontFamily: "VT323",
@@ -82,6 +83,10 @@ export default class Income extends Component {
           <h1 className="vt-font">Income</h1>
           {inputFields}
           <div className="pt-sans-font">
+            <p>Income: $50,000 = 50000</p>
+            <br />
+            <p>State: Tennessee = TN</p>
+            <br />
             <p>Filing Status:</p>
             <p>1 - Single;</p>
             <p>2 - Married, Filing Jointly;</p>
@@ -89,6 +94,7 @@ export default class Income extends Component {
             <p>4 - Head of Household; </p>
           </div>
           <FlatButton
+            className="income-button"
             style={style}
             label="CALCULATE"
             onClick={() => {
@@ -102,7 +108,7 @@ export default class Income extends Component {
           <br />
           {this.state.taxInfo && (
             <Link to="/budget">
-              <FlatButton label="Make a Budget" />
+              <FlatButton style={style} label="Make a Budget" />
             </Link>
           )}
         </div>
@@ -119,8 +125,8 @@ export default class Income extends Component {
                     this.state.taxInfo.annual.state.amount,
                     this.state.taxInfo.annual.fica.amount
                   ],
-                  backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-                  hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+                  backgroundColor: ["#54A759", "#116416", "#004304"],
+                  hoverBackgroundColor: ["#54A759", "#116416", "#004304"]
                 }
               ]
             }}

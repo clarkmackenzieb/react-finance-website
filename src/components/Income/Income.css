@@ -1,21 +1,22 @@
-*{
-    overflow: none;
+* {
+  overflow: none;
 }
 
 .chartjs-render-monitor {
-    max-width: 50vw;
-    height: 50vh;
-    max-height: 75vh;
+  max-width: 50vw;
+  height: 50vh;
+  max-height: 75vh;
 }
 
 .income-container {
-    height: 86vh;
-    max-height: 90vh;
-    max-width: 100vw;
-    display: flex;
-    padding-left: 20px;
+  height: 86vh;
+  max-height: 90vh;
+  max-width: 100vw;
+  display: flex;
+  padding-left: 20px;
+  background-color: #8585d4;
 }
 
-/* .income-text-container {
-    float: left; 
-} */
+.income-button {
+  margin-top: 10px;
+}
