@@ -26,7 +26,7 @@ export default class Income extends Component {
 
   computeTax(income, statePick, filing) {
     axios
-      .post("http://localhost:3005/api/incomeTax", {
+      .post("/api/incomeTax", {
         income,
         statePick,
         filing
